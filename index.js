@@ -13,20 +13,19 @@ const data1k = JSON.parse(fs.readFileSync('./1K.json', 'utf-8'));
 const data50k = JSON.parse(fs.readFileSync('./50K.json', 'utf-8'));
 const data1m = JSON.parse(fs.readFileSync('./1M.json', 'utf-8'));
 
-let searchingResult = [];
 // rechercher un élément dans le tableau à partir du label
 const searchingFromLabel = (arrayWithObjData, labelToFind) => {
 	for (let i = 0; i < arrayWithObjData.length; i++) {
 		if (arrayWithObjData[i].label === labelToFind) {
-			searchingResult.push(arrayWithObjData[i]);
+			return arrayWithObjData[i];
 		}
 	}
-	return searchingResult[0];
 };
 // console.log(searchingFromLabel(data1k, 'one'));
 
 // rechercher tous les éléments à partir de l'attribut weight a refactorer en brut
 const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
+	let searchingResult = [];
 	for (let i = 0; i < arrayWithObjData.length; i++) {
 		if (arrayWithObjData[i].weight === weightWeLookingFor) {
 			searchingResult.push(arrayWithObjData[i]);
@@ -34,7 +33,7 @@ const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
 	}
 	return searchingResult;
 };
-// console.log(searchingFromWeight(data1k, 50));
+// console.log(searchingFromWeight(data1m, 50));
 
 // rechercher le nième élément à partir de l'attribut weight a refactorer en brut
 const searchingNelementFromWeight = (
@@ -42,26 +41,27 @@ const searchingNelementFromWeight = (
 	nElement,
 	weightWeLookingFor,
 ) => {
-	for (let i = 0; i < arrayWithObjData.length; i++) {
-		if (arrayWithObjData[i].weight === weightWeLookingFor) {
-			searchingResult.push(arrayWithObjData[i]);
-		}
-	}
-	return searchingResult[nElement - 1];
+	let searchingResult = null;
+	for (let i = 0; i < arrayWithObjData.length; i++) {}
 };
-// console.log(searchingNelementFromWeight(data1k, 1, 99));
+console.log(searchingNelementFromWeight(data1m, 1, 50));
 
 // récupérer le niéme élément a refactorer en brut
 const searchingByIndex = (arrayWithObjData, index) => arrayWithObjData[index];
 // console.log(searchingByIndex(data1m, 2));
 
+console.time();
 // rechercher le dernier élément à partir de l'attribut weight
+
 const lastElement = (arrayWithObjData, weightWeLookingFor) => {
+	let lastEl = null;
 	for (let i = 0; i < arrayWithObjData.length; i++) {
 		if (arrayWithObjData[i].weight === weightWeLookingFor) {
-			searchingResult.push(arrayWithObjData[i]);
+			lastEl = arrayWithObjData[i];
 		}
 	}
-	return searchingResult[searchingResult.length - 1];
+	return lastEl;
 };
 // console.log(lastElement(data50k, 65));
+
+console.timeEnd();
