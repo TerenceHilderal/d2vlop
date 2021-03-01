@@ -15,10 +15,12 @@ const data1m = JSON.parse(fs.readFileSync('./1M.json', 'utf-8'));
 
 // rechercher un élément dans le tableau à partir du label
 const searchingFromLabel = (arrayWithObjData, labelToFind) => {
-	for (let i = 0; i < arrayWithObjData.length; i++) {
-		if (arrayWithObjData[i].label === labelToFind) {
-			return arrayWithObjData[i];
+	let index = 0;
+	while (index < arrayWithObjData.length) {
+		if (arrayWithObjData[index].label === labelToFind) {
+			return arrayWithObjData[index];
 		}
+		index += 1;
 	}
 };
 // console.log(searchingFromLabel(data1k, 'one'));
@@ -36,15 +38,23 @@ const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
 // console.log(searchingFromWeight(data1m, 50));
 
 // rechercher le nième élément à partir de l'attribut weight a refactorer en brut
+
 const searchingNelementFromWeight = (
 	arrayWithObjData,
 	nElement,
 	weightWeLookingFor,
 ) => {
-	let searchingResult = null;
-	for (let i = 0; i < arrayWithObjData.length; i++) {}
+	matchAnElemnt = 0;
+	for (let i = 0; i < arrayWithObjData.length - 1; i++) {
+		if (arrayWithObjData[i].weight == weightWeLookingFor) {
+			matchAnElemnt++;
+			if (matchAnElemnt == nElement) {
+				return arrayWithObjData[i];
+			}
+		}
+	}
 };
-console.log(searchingNelementFromWeight(data1m, 1, 50));
+console.log(searchingNelementFromWeight(data1m, 10, 2));
 
 // récupérer le niéme élément a refactorer en brut
 const searchingByIndex = (arrayWithObjData, index) => arrayWithObjData[index];
