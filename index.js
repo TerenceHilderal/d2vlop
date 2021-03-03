@@ -16,14 +16,15 @@ const data1m = JSON.parse(fs.readFileSync('./1M.json', 'utf-8'));
 // rechercher un élément dans le tableau à partir du label
 const searchingFromLabel = (arrayWithObjData, labelToFind) => {
 	let index = 0;
-	while (index < arrayWithObjData.length) {
-		if (arrayWithObjData[index].label === labelToFind) {
-			return arrayWithObjData[index];
-		}
-		index += 1;
+	while (
+		index < arrayWithObjData.length &&
+		arrayWithObjData[index].label !== labelToFind
+	) {
+		index++;
 	}
+	return arrayWithObjData[index];
 };
-// console.log(searchingFromLabel(data1k, 'one'));
+// console.log(searchingFromLabel(data1k, 'two'));
 
 // rechercher tous les éléments à partir de l'attribut weight a refactorer en brut
 const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
@@ -45,16 +46,28 @@ const searchingNelementFromWeight = (
 	weightWeLookingFor,
 ) => {
 	matchAnElemnt = 0;
-	for (let i = 0; i < arrayWithObjData.length - 1; i++) {
-		if (arrayWithObjData[i].weight == weightWeLookingFor) {
-			matchAnElemnt++;
-			if (matchAnElemnt == nElement) {
-				return arrayWithObjData[i];
-			}
-		}
+	let index = 0;
+	// for (let i = 0; i < arrayWithObjData.length - 1; i++) {
+	// 	if (arrayWithObjData[i].weight == weightWeLookingFor) {
+	// 		matchAnElemnt++;
+	// 		if (matchAnElemnt == nElement) {
+	// 			return arrayWithObjData[i];
+	// 		}
+	// 	}
+	// }
+	while (
+		index < arrayWithObjData.length - 1 &&
+		arrayWithObjData[index].weight !== weightWeLookingFor &&
+		matchAnElemnt === nElement
+	) {
+		index++;
+		matchAnElemnt++;
+		// console.log(nElement);
 	}
+	return arrayWithObjData[index];
 };
-console.log(searchingNelementFromWeight(data1m, 10, 2));
+console.log(searchingNelementFromWeight(data1m, 2, 2));
+// avec 10 donne six avec 3 donne two
 
 // récupérer le niéme élément a refactorer en brut
 const searchingByIndex = (arrayWithObjData, index) => arrayWithObjData[index];
