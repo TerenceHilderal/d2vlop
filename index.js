@@ -16,15 +16,23 @@ const data1m = JSON.parse(fs.readFileSync('./1M.json', 'utf-8'));
 // rechercher un élément dans le tableau à partir du label
 const searchingFromLabel = (arrayWithObjData, labelToFind) => {
 	let index = 0;
+	// try {
 	while (
 		index < arrayWithObjData.length &&
 		arrayWithObjData[index].label !== labelToFind
 	) {
 		index++;
 	}
-	return arrayWithObjData[index];
+	if (arrayWithObjData[index] === undefined || null) {
+		throw new Error(`Sorry, no matching product with label : ${labelToFind}`);
+	} else {
+		return arrayWithObjData[index];
+	}
+	// } catch (error) {
+	// 	console.error(error);
+	// }
 };
-// console.log(searchingFromLabel(data1k, 'two'));
+// console.log(searchingFromLabel(data1k, 'tdqfqsfq'));
 
 // rechercher tous les éléments à partir de l'attribut weight a refactorer en brut
 const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
@@ -32,11 +40,15 @@ const searchingFromWeight = (arrayWithObjData, weightWeLookingFor) => {
 	for (let i = 0; i < arrayWithObjData.length; i++) {
 		if (arrayWithObjData[i].weight === weightWeLookingFor) {
 			searchingResult.push(arrayWithObjData[i]);
+		} else {
+			throw new Error(
+				`Sorry,no matching product with this weight ${weightWeLookingFor}`,
+			);
 		}
 	}
 	return searchingResult;
 };
-// console.log(searchingFromWeight(data1m, 50));
+// console.log(searchingFromWeight(data1m, 3000));
 
 // rechercher le nième élément à partir de l'attribut weight a refactorer en brut
 
@@ -45,25 +57,18 @@ const searchingNelementFromWeight = (
 	nElement,
 	weightWeLookingFor,
 ) => {
-	let matchAnElemnt = 0;
+	let matchAnElemnt = null;
 	let index = 0;
-	// for (let i = 0; i < arrayWithObjData.length - 1; i++) {
-	// 	if (arrayWithObjData[i].weight == weightWeLookingFor) {
-	// 		matchAnElemnt++;
-	// 		if (matchAnElemnt == nElement) {
-	// 			return arrayWithObjData[i];
-	// 		}
-	// 	}
-	// }
+
 	while (matchAnElemnt !== nElement) {
+		index++;
 		if (arrayWithObjData[index].weight === weightWeLookingFor) {
 			matchAnElemnt++;
 		}
-		index++;
 	}
-	return arrayWithObjData[index - 1];
+	return arrayWithObjData[index];
 };
-// console.log(searchingNelementFromWeight(data1m, 15, 2));
+// console.log(searchingNelementFromWeight(data1m, 20, 20));
 // avec 10 donne six avec 3 donne two
 
 // récupérer le niéme élément a refactorer en brut
