@@ -16,21 +16,17 @@ const data1m = JSON.parse(fs.readFileSync('./1M.json', 'utf-8'));
 // rechercher un élément dans le tableau à partir du label
 const searchingFromLabel = (arrayWithObjData, labelToFind) => {
 	let index = 0;
-	// try {
 	while (
 		index < arrayWithObjData.length &&
 		arrayWithObjData[index].label !== labelToFind
 	) {
 		index++;
 	}
-	if (arrayWithObjData[index] === undefined || null) {
-		throw new Error(`Sorry, no matching product with label : ${labelToFind}`);
+	if (arrayWithObjData[index] === undefined) {
+		return null;
 	} else {
 		return arrayWithObjData[index];
 	}
-	// } catch (error) {
-	// 	console.error(error);
-	// }
 };
 // console.log(searchingFromLabel(data1k, 'tdqfqsfq'));
 
