@@ -55,18 +55,26 @@ const searchingNelementFromWeight = (
 ) => {
 	let matchAnElemnt = 0;
 	let index = 0;
+	let foundElement;
 
-	while (matchAnElemnt !== nElement) {
+	if (!nElement || !weightWeLookingFor) {
+		return null;
+	}
+
+	while (matchAnElemnt !== nElement && index < arrayWithObjData.length) {
 		index++;
-		if (arrayWithObjData[index] === undefined) {
-			return null;
-		} else if (arrayWithObjData[index].weight === weightWeLookingFor) {
+		if (arrayWithObjData[index].weight === weightWeLookingFor) {
 			matchAnElemnt++;
+			foundElement = arrayWithObjData[index];
 		}
 	}
-	return arrayWithObjData[index];
+	if (foundElement === undefined || !foundElement) {
+		return null;
+	} else {
+		return foundElement;
+	}
 };
-console.log(searchingNelementFromWeight(data1m, 3, 20));
+// console.log(searchingNelementFromWeight(data1m, 3, 25));
 // avec 10 donne six avec 3 donne two
 
 // récupérer le niéme élément a refactorer en brut
